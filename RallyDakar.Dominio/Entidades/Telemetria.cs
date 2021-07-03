@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RallyDakar.Dominio.Entidades {
     public class Telemetria {
+
         public int Id { get; set; }
         public int TemporadaId { get; set; }
         public int PilotoId { get; set; }
