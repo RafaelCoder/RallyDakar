@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +14,6 @@ using Microsoft.Extensions.Logging;
 using RallyDakar.Dominio.DbContexto;
 using RallyDakar.Dominio.Interfaces;
 using RallyDakar.Dominio.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RallyDakar.API {
     public class Startup {
@@ -27,7 +28,10 @@ namespace RallyDakar.API {
             services.AddDbContext<RallyDbContexto>(opt => opt.UseInMemoryDatabase("RallyDB"),
                 ServiceLifetime.Scoped,
                 ServiceLifetime.Scoped);
-            services.AddControllers();
+
+            services.AddControllers().AddNewtonsoftJson();
+
+
             services.AddScoped<IPilotoRepositorio, PilotoRepositorio>();
         }
 
