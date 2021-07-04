@@ -2,7 +2,6 @@
 
 namespace RallyDakar.Dominio.Entidades {
     public class Telemetria {
-
         public int Id { get; set; }
         public int TemporadaId { get; set; }
         public int PilotoId { get; set; }
