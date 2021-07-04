@@ -18,6 +18,14 @@ namespace RallyDakar.Dominio.Repositorios {
             _rallyDbContexto.SaveChanges();
         }
 
+        public bool Existe(int pilotoId) {
+            return _rallyDbContexto.Pilotos.Any();
+        }
+
+        public Piloto Obter(int pilotoId) {
+            return _rallyDbContexto.Pilotos.FirstOrDefault(p => p.Id == pilotoId);
+        }
+
         public IEnumerable<Piloto> ObterTodos() {
             return _rallyDbContexto.Pilotos.ToList();
         }
