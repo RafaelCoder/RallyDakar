@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using RallyDakar.Dominio.Entidades;
 using RallyDakar.Dominio.Interfaces;
 using System;
@@ -65,6 +66,7 @@ namespace RallyDakar.API.Controllers {
                     return NotFound();
 
                 _pilotoRepositorio.Atualizar(piloto);
+
                 return NoContent();
             } catch (Exception ex) {
                 return StatusCode(500, "Houve um erro interno bla bla bla");
@@ -72,9 +74,18 @@ namespace RallyDakar.API.Controllers {
         }
 
         [HttpPatch("{id}")]
-        public IActionResult AtualizarParcialmente(int id) {
+        public IActionResult AtualizarParcialmente(int id, [FromBody] JsonPatchDocument<Piloto> patchPiloto) {
             try {
-                return Ok();
+                if (!_pilotoRepositorio.Existe(id))
+                    return NotFound();
+
+                var piloto = _pilotoRepositorio.Obter(id);
+
+                patchPiloto.ApplyTo(piloto);
+
+                _pilotoRepositorio.Atualizar(piloto);
+
+                return NoContent();
             } catch (Exception ex) {
                 return StatusCode(500, "Houve um erro interno bla bla bla");
             }
